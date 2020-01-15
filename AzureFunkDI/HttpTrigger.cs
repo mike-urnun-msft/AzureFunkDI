@@ -7,15 +7,18 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Options;
 
 namespace AzureFunkDI
 {
     public class HttpTrigger
     {
         private readonly IGreeter _greeter;
-        public HttpTrigger(IGreeter greeter)
+        private readonly IMyOptions _settings;
+        public HttpTrigger(IGreeter greeter, IOptions<MyOptions> options)
         {
             _greeter = greeter;
+            _settings = options.Value;
         }
 
         [FunctionName("HttpTrigger")]
@@ -31,8 +34,10 @@ namespace AzureFunkDI
             dynamic data = JsonConvert.DeserializeObject(requestBody);
             name = name ?? data?.name;
 
+            string customSetting = _settings.MyCustomSetting;
+
             return name != null
-                ? (ActionResult)new OkObjectResult(_greeter.CreateGreeting(name))
+                ? (ActionResult)new OkObjectResult(_greeter.CreateGreeting(name, customSetting))
                 : new BadRequestObjectResult("Please pass a name on the query string or in the request body");
         }
     }

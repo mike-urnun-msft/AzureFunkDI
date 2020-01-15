@@ -6,9 +6,9 @@ namespace AzureFunkDI
 {
     class Greeter : IGreeter
     {
-        public string CreateGreeting(string name)
-        {
-            return $"Hello, {name}!";
+        public string CreateGreeting(string name, string customSetting)
+        {            
+            return $"Hello, {name}!" + customSetting;
         }
     }
 }

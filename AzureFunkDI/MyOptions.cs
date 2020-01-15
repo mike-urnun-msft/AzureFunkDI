@@ -4,8 +4,8 @@ using System.Text;
 
 namespace AzureFunkDI
 {
-    public interface IGreeter
+    public class MyOptions:IMyOptions
     {
-        string CreateGreeting(string name, string customSetting);
+        public string MyCustomSetting { get; set; }
     }
 }
