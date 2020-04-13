@@ -8,7 +8,7 @@ namespace AzureFunkDI
     {
         public string CreateGreeting(string name)
         {
-            return $"Hello, {name}!";
+            return $"Sain bain uu, {name}!";
         }
     }
 }
